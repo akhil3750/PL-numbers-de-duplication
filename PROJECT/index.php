@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,15 +38,21 @@
     <div class="container mx-auto p-6">
         <!-- Header -->
         <header class="flex justify-between items-center mb-8 animate-slide-in">
-            <h1 class="text-4xl font-extrabold text-white drop-shadow-lg">
-                <i class="fas fa-list-ul mr-2"></i>PL Number Deduplication
-            </h1>
-            <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)"
-                    class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white">
-                <i x-show="!darkMode" class="fas fa-moon"></i>
-                <i x-show="darkMode" class="fas fa-sun"></i>
-            </button>
-        </header>
+    <h1 class="text-4xl font-extrabold text-white drop-shadow-lg">
+        <i class="fas fa-list-ul mr-2"></i>PL Number Deduplication
+    </h1>
+    <div class="flex items-center gap-4">
+        <span class="text-white font-semibold"><?php echo htmlspecialchars($_SESSION['username']); ?></span>
+        <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)"
+                class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white">
+            <i x-show="!darkMode" class="fas fa-moon"></i>
+            <i x-show="darkMode" class="fas fa-sun"></i>
+        </button>
+        <a href="logout.php" class="p-2 rounded-full bg-red-500 text-white hover:bg-red-600">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </div>
+</header>
 
         <!-- Input Form -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
